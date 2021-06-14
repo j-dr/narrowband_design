@@ -1,0 +1,71 @@
+# addgals config
+Runtime :
+  outpath : /global/cscratch1/sd/jderose/BCC/Chinchilla/Herd/Chinchilla-3/addgalspostprocess/truth_sdss/Chinchilla-3
+  nside_output : 8
+  write_pos : True
+NBody :
+  Domain :
+    fmt : BCCLightcone
+    lbox : [1050]
+    rmin : [ 1.0 ]
+    rmax : [ 900 ]
+    nrbins : [2]
+    nside : 2
+    nest : True
+  partpath :
+    - /output/Lb1050/output/pixlc/
+  denspath :
+    - /output/Lb1050/output/calcrnn/
+  hinfopath :
+    - /output/Lb1050/output/pixlc/
+  halofile :
+    - /output/Lb1050/output/halos/cut_reform_out_0.parents
+  halodensfile :
+    - /output/Lb1050/output/halos/rnn_cut_reform_out_0.parents
+
+Cosmology:
+  omega_m : 0.286
+  omega_b : 0.047
+  h : 1.0
+  n_s : 0.96
+  sigma8 : 0.82
+  w : -1
+
+GalaxyModel :
+  ADDGALSModel :
+    use_dens : True
+    dMr : 0.035
+    dz : 0.01
+    luminosityFunctionConfig :
+      modeltype : DSGLuminosityFunction
+      magmin : 27.0
+    rdelModelConfig :
+      gaussian_process : True
+      rdelModelFile : /global/project/projectdirs/des/jderose/SkyFactory-config//Addgals/rdel/DSG_0.684_0.17_gp_training_data.fits
+      lcenModelFile : /global/project/projectdirs/des/jderose/SkyFactory-config//Addgals/rdel/C400_DSG_0.684_0.17_lcenmass.fits
+      lcenMassMin : [ 6000000000000, 6000000000000, 10000000000000 ]
+      useSubhalos : False
+      scatter: 0.17
+    colorModelConfig :
+      redFractionModelFile : /global/project/projectdirs/des/jderose/SkyFactory-config//Addgals/primus_rf_model.txt
+      trainingSetFile : /global/project/projectdirs/des/jderose/SkyFactory-config//Addgals/sdss_vagc_kcorr_r177_z_005_02_wdens.fits
+      filters : ['desy3/desy3std_g.par', 'desy3/desy3std_r.par', 'desy3/desy3std_i.par', 'desy3/desy3std_z.par', 'desy3/desy3_Y.par']
+      band_shift : [0.1, 0.1, 0.1, 0.1, 0.1]
+      third_order_mag_evolution : True
+      piecewise_mag_evolution: False
+      match_magonly: True
+      Q : [3.72141802, 4.02056179, 1.23063288, 0.0, 2.0, 0.2]
+    shapeModelConfig :
+      modeltype : GMMShapes
+      n_components : 20
+      cov_file : /global/project/projectdirs/des/jderose/SkyFactory-config//Addgals/gmm_cov_3p_nc20.txt.npy
+      means_file : /global/project/projectdirs/des/jderose/SkyFactory-config//Addgals/gmm_mu_3p_nc20.txt.npy
+      weights_file : /global/project/projectdirs/des/jderose/SkyFactory-config//Addgals/gmm_w_3p_nc20.txt.npy
+      conditional_fields :
+      - ['TMAG', 2]
+      conditional_field_mean : [22.33084578]
+      conditional_field_std : [1.25009228]
+      size_mean : -2.5196
+      size_std : 0.2059
+      epsilon_mean : 0.23635986
+      epsilon_std: 0.1341013
